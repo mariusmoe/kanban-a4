@@ -1,1 +1,18 @@
+<mat-toolbar style="min-height: 30px !important; height: 40px !important;">
+   Kanban time
+</mat-toolbar>
+
+<mat-drawer-container class="example-container" autosize>
+<mat-drawer #drawer class="example-sidenav" mode="side" opened>
+    <button mat-button routerLink="/kanban" routerLinkActive="active">
+        <mat-icon>view_week</mat-icon><span *ngIf="showFiller"> Kanban board</span>
+      </button>
+      <br>
+      <button (click)="showFiller = !showFiller" mat-button class="expand-drawer-button">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    
+</mat-drawer>
+
 <router-outlet></router-outlet>
+</mat-drawer-container>

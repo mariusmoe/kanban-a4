@@ -1,0 +1,12 @@
+.expand-drawer-button {
+    bottom: 0px;
+    position:absolute;
+}
+
+.example-container {
+    position: absolute;
+    top: 40px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+  }

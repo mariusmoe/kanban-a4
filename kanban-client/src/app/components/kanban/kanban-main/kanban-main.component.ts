@@ -21,6 +21,10 @@ export class KanbanMainComponent implements OnInit {
     'Fall asleep'
   ];
 
+  progress = [
+  'coding'
+  ];
+
   done = [
     'Get up',
     'Brush teeth',
