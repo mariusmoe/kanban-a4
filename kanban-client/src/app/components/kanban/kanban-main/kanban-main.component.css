@@ -1,17 +1,23 @@
+.all-lists {
+  height: 100%;
+}
+
 .example-container {
     width: 400px;
     max-width: 100%;
-    margin: 0 25px 25px 0;
+    margin-left: 25px;
     display: inline-block;
     vertical-align: top;
+    height: 100%;
   }
   
   .example-list {
     border: solid 1px #ccc;
-    min-height: 60px;
+    min-height: 150px;
+    height: 90%;
     background: white;
     border-radius: 4px;
-    overflow: hidden;
+    overflow: auto;
     display: block;
   }
   

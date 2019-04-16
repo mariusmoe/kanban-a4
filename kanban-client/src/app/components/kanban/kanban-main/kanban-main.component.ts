@@ -14,6 +14,10 @@ export class KanbanMainComponent implements OnInit {
   ngOnInit() {
   }
 
+  inbox = ['make an app']
+
+  icebox = ['Get up']
+
   todo = [
     'Get to work',
     'Pick up groceries',
@@ -26,7 +30,6 @@ export class KanbanMainComponent implements OnInit {
   ];
 
   done = [
-    'Get up',
     'Brush teeth',
     'Take a shower',
     'Check e-mail',
