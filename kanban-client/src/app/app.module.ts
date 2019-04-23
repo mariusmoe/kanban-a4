@@ -10,6 +10,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
 
@@ -29,6 +31,7 @@ import { RouterModule } from '@angular/router';
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
+    MatCardModule,
     RouterModule
   ],
   providers: [],

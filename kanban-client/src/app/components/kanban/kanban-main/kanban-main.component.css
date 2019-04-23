@@ -1,11 +1,13 @@
 .all-lists {
   height: 100%;
+  width: 1450px;
+  overflow-x: scroll;
 }
 
 .example-container {
-    width: 400px;
-    max-width: 100%;
-    margin-left: 25px;
+    width: 335px;
+
+    margin-left: 15px;
     display: inline-block;
     vertical-align: top;
     height: 100%;
@@ -25,8 +27,7 @@
     padding: 20px 10px;
     border-bottom: solid 1px #ccc;
     color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
+    
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
@@ -48,7 +49,7 @@
   }
   
   .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    transition: transform 100ms cubic-bezier(0, 0, 0.2, 1);
   }
   
   .example-box:last-child {
@@ -56,5 +57,26 @@
   }
   
   .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    transition: transform 150ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .outer-main-container {
+    display: flex;
+    height: 100%;
+  }
+
+  .tips {
+    background-color: lightblue;
+    margin-top: 60px;
+    margin-left: 10px;
+    min-width: 200;
+    width: 300px;
+    max-width: 600px;
+  }
+  
+  @media only screen and (max-width: 1810px) {
+    .tips {
+      background-color: lightblue;
+      display: none;
+    }
   }
