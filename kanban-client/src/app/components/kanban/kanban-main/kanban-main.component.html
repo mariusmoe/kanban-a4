@@ -10,18 +10,12 @@
           [cdkDropListConnectedTo]="[iceboxList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
-          <mat-card class="example-box" *ngFor="let item of icebox" cdkDrag>
-              <div class="mat-body-strong">
-                {{item.title}}
-              </div>
-               <div class="mat-small">
-                {{item.description}}
-               </div> 
-            
+          
+          <mat-card class="example-box" *ngFor="let item of icebox; let i = index" cdkDrag>
+              <app-small-card [cardData]="item" (click)="itemClicked(item,i,icebox)"></app-small-card>
           </mat-card>
         </div>
       </div>
-    
       <div class="example-container">
         <h2>To do</h2>
         <div
@@ -31,7 +25,9 @@
           [cdkDropListConnectedTo]="[doneList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+          <mat-card class="example-box" *ngFor="let item of todo; let i = index" cdkDrag>
+              <app-small-card [cardData]="item" (click)="itemClicked(item,i,todo)"></app-small-card>
+          </mat-card>
         </div>
       </div>
       <div class="example-container">
@@ -43,7 +39,9 @@
           [cdkDropListConnectedTo]="[progressList]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
-          <div class="example-box" *ngFor="let item of progress" cdkDrag>{{item}}</div>
+          <mat-card class="example-box" *ngFor="let item of progress; let i = index" cdkDrag>
+              <app-small-card [cardData]="item" (click)="itemClicked(item,i, progress)"></app-small-card>
+          </mat-card>
         </div>
       </div>
       <div class="example-container">
@@ -55,15 +53,15 @@
             [cdkDropListConnectedTo]="[todoList]"
             class="example-list"
             (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+            <mat-card class="example-box" *ngFor="let item of done; let i = index" cdkDrag>
+                <app-small-card [cardData]="item" (click)="itemClicked(item, i, done)"></app-small-card>
+            </mat-card>
           </div>
         </div>
     </div>
-
     <div class="tips">
         <p>Some tip of the day!</p>
-    </div>
-    
+    </div> 
 </div>
 
 

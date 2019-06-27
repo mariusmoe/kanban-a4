@@ -1,0 +1,16 @@
+<div>
+    <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+                <input matInput  type="text" formControlName="title" placeholder="Title" cdkFocusInitial>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput  type="text" formControlName="description" placeholder="Description"></textarea>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button type="submit" [disabled]="!cardForm.valid" [mat-dialog-close]="formValue" cdkFocusInitial>Submit</button>
+        <p>
+            Form Status: {{ cardForm.status }}
+        </p>
+        
+    </form>
+</div>
