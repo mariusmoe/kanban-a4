@@ -133,14 +133,11 @@ export class DialogCardEditor {
     tags: ''
   });
 
-  
-
-
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogCardEditor>,
     @Inject(MAT_DIALOG_DATA) public data: Card) {
-       this.cardForm.patchValue(this.createForm(this.data).value)
+      this.cardForm.patchValue(this.createForm(this.data).value)
     }
 
   /**

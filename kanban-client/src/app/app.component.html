@@ -1,14 +1,19 @@
 <mat-toolbar style="min-height: 30px !important; height: 40px !important;">
    Kanban time
-</mat-toolbar>
+    
+   <button mat-raised-button (click)="createNewCard()">New card (Cmd + enter)</button>
 
+  
+</mat-toolbar>
+<ng-keyboard-shortcuts [shortcuts]="shortcuts" [disabled]="dialogOpen"></ng-keyboard-shortcuts>
+<ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Help'"></ng-keyboard-shortcuts-help>
 <mat-drawer-container class="example-container" autosize>
 <mat-drawer #drawer class="example-sidenav" mode="side" opened>
-    <button mat-button routerLink="/kanban" routerLinkActive="active">
+    <button mat-button routerLink="/kanban" routerLinkActive="active" class="navigation-btns">
         <mat-icon>view_week</mat-icon><span *ngIf="showFiller"> Kanban board</span>
-      </button>
+    </button>
       <br>
-      <button (click)="showFiller = !showFiller" mat-button class="expand-drawer-button">
+      <button (click)="showFiller = !showFiller" mat-button class="navigation-btns expand-drawer-button">
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     
@@ -16,6 +21,6 @@
 
 <router-outlet></router-outlet>
 </mat-drawer-container>
-<div class="footer mat-body">
+<!-- <div class="footer mat-body">
   No rights reserved ;)
-</div>
+</div> -->

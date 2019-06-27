@@ -1,7 +1,9 @@
 .all-lists {
   height: 100%;
   width: 1450px;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
+  /* display: inline-block; */
+  white-space: nowrap;
 }
 
 .example-container {
@@ -14,6 +16,7 @@
   }
   
   .example-list {
+    white-space: normal;
     border: solid 1px #ccc;
     min-height: 150px;
     height: 90%;

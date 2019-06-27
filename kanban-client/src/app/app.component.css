@@ -6,7 +6,7 @@
 .example-container {
     position: absolute;
     top: 40px;
-    bottom: 60px;
+    bottom: 0px;
     left: 0;
     right: 0;
   }
@@ -21,4 +21,13 @@
 
     height: 40px;
     
+}
+
+.navigation-btns {
+  min-height: 23px !important;
+  min-width: 10px !important;
+  
+  
+  padding:  5px !important;
+  /* line-height: 0px;  */
 }

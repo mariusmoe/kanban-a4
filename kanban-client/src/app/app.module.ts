@@ -14,12 +14,17 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
+
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
 import { SmallCardComponent } from './components/kanban/small-card/small-card.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddNewCardComponent } from './components/kanban/add-new-card/add-new-card.component';
+import { KeyboardShortcutsModule }     from 'ng-keyboard-shortcuts';  
 
 @NgModule({
   declarations: [
@@ -27,7 +32,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     KanbanMainComponent,
     PageNotFoundComponent,
     SmallCardComponent,
-    DialogCardEditor
+    DialogCardEditor,
+    AddNewCardComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +49,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatDialogModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatMenuModule,
+    MatSelectModule,
+    KeyboardShortcutsModule.forRoot()
   ],
   entryComponents: [
     DialogCardEditor
