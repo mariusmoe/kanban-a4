@@ -52,7 +52,7 @@ export class AppComponent implements AfterViewInit{
         console.log('The dialog was closed');
         
       }
-      // TODO: Save the newly changed card
+      // TODO: Save the newly created card
     });
   }
 }

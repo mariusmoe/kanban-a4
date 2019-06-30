@@ -16,6 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -25,6 +26,7 @@ import { SmallCardComponent } from './components/kanban/small-card/small-card.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddNewCardComponent } from './components/kanban/add-new-card/add-new-card.component';
 import { KeyboardShortcutsModule }     from 'ng-keyboard-shortcuts';  
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { KeyboardShortcutsModule }     from 'ng-keyboard-shortcuts';
     MatInputModule,
     MatMenuModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule ,
     KeyboardShortcutsModule.forRoot()
   ],
   entryComponents: [
