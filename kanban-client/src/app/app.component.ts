@@ -53,6 +53,7 @@ export class AppComponent implements AfterViewInit{
         
       }
       // TODO: Save the newly created card
+      // Let the service handle this!
     });
   }
 }

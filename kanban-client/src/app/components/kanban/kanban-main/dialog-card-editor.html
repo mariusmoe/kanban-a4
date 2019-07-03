@@ -1,27 +1,52 @@
 <div>
     
-    <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
-        <mat-form-field>
+    <form [formGroup]="cardForm" (ngSubmit)="onSubmit()" class="card-form">
+        <mat-form-field class="full-width">
                 <input matInput  type="text" formControlName="title" placeholder="Title" cdkFocusInitial>
         </mat-form-field>
-        <mat-form-field>
-            <textarea matInput  type="text" formControlName="dueDate" placeholder="Description"></textarea>
+        <mat-form-field class="full-width">
+            <textarea 
+                matInput  
+                type="text" 
+                formControlName="description" 
+                placeholder="Description"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5">
+            </textarea>
         </mat-form-field>
         <mat-form-field>
                 <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dueDate" tabindex="-1" (focus)="picker.open()">
                 <mat-datepicker-toggle matSuffix [for]="picker" tabindex="-1"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="full-width">
             <!-- Estimated time -->
             <input matInput type="number" formControlName="estimatedTime"  placeholder="Estimated Time" min="0" max="50">
         </mat-form-field>
-        <mat-form-field>
-            <!-- Tags -->
+        <mat-form-field class="full-width">
+            <!-- TODO: make4 this more fancy 
+                https://stackblitz.com/edit/angular-dzf9dw?embed=1&file=app/autocomplete-overview-example.ts
+                Tags -->
             <!-- Listen for enter autocomplete -->
             <textarea matInput  type="text" formControlName="tags" placeholder="Tags"></textarea>
             <!-- Add tags as removable chips -->
         </mat-form-field>
+
+
+        
+
+
+        <!-- TODO: add functionality for changing column in card editor -->
+        <!-- <mat-form-field>
+            <mat-label>Column</mat-label>
+                <mat-select [(ngModel)]="selectedValue" name="column" tabindex="-1">
+                  <mat-option *ngFor="let column of columns" [value]="column.value">
+                    {{column.viewValue}}
+                  </mat-option>
+            </mat-select>
+        </mat-form-field> -->
         <br>
         <button mat-raised-button type="submit" [disabled]="!cardForm.valid" [mat-dialog-close]="formValue" cdkFocusInitial>Submit</button>
         <p>

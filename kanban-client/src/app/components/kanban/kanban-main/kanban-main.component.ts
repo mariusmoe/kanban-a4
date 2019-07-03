@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, NgZone, ViewChild } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Card } from 'src/app/_models/card';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder,  Validators, FormGroup, FormControl } from '@angular/forms';
-
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-kanban-main',
@@ -134,12 +135,20 @@ export class DialogCardEditor {
   });
 
   constructor(
+    private _ngZone: NgZone,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogCardEditor>,
     @Inject(MAT_DIALOG_DATA) public data: Card) {
       this.cardForm.patchValue(this.createForm(this.data).value)
     }
+    @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
+    triggerResize() {
+      // Wait for changes to be applied, then trigger textarea resize.
+      this._ngZone.onStable.pipe(take(1))
+          .subscribe(() => this.autosize.resizeToFitContent(true));
+    }
+    
   /**
    * Abort -> do not save
    */

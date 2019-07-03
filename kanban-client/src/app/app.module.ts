@@ -17,7 +17,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
@@ -56,6 +56,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule ,
+    MatAutocompleteModule,
     KeyboardShortcutsModule.forRoot()
   ],
   entryComponents: [
