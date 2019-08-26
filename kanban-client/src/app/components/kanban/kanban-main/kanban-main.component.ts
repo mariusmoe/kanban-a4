@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FormBuilder,  Validators, FormGroup, FormControl } from '@angular/forms';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {take} from 'rxjs/operators';
+import { KanbanService } from 'src/app/_services/kanban.service';
 
 @Component({
   selector: 'app-kanban-main',
@@ -13,89 +14,129 @@ import {take} from 'rxjs/operators';
 })
 export class KanbanMainComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  icebox: Card[] = []
+
+  todo: Card[] = [];
+
+  progress: Card[] = [];
+
+  done: Card[] = [];
+
+
+ // constructor() { }
 
   ngOnInit() {
-    // TODO: Load kanban cards
   }
+    // TODO: Load kanban cards
+
+// ----------------------------------------------
+
+    masterList = [];
+    weeks = [];
+    connectedTo = [];
 
 
+    // Hva med å bygge denne listen fra collections i firestore?
 
-  icebox: Card[] = [
-    {
-      id: 'asdasdasd',
-      title: 'skriv koode',
-      description: 'Skriv all den koden som ikke har blitt skrevet hitttil og ikke noe aso asdoa sasd'
-    },
-    {
-      id: 'sggfgfdgdfg',
-      title: 'vak opp!',
-      dueDate: null,
-      estimatedTime: null,
-      tags: null,
-      description: 'Alle tallerkner må vaskes opp grundig'
+    constructor(public dialog: MatDialog,
+      private kanbanService: KanbanService){
+      this.masterList = ['Icebox','Todo', 'Progress', 'Done'] 
+      this.weeks = [
+        {
+          id: 'Icebox',
+          weeklist: [
+            {
+              id: 'qqqqqqqqqqqqqq',
+              title: 'Write more code now!',
+              dueDate: null,
+              estimatedTime: null,
+              tags: null,
+              description: 'All kode burde testes'
+            },
+            
+          ]
+        }, {
+          id: 'Todo',
+          weeklist: [
+            {
+              id: 'asdadadadfggsf',
+              title: 'Get to work',
+              description: 'Skriv Get to workawd asdasd aasdasdasd'
+            },
+            {
+              id: 'asdadadadfggsf',
+              title: 'Gjør noe',
+              description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
+            }
+          ]
+        }, {
+          id: 'Progress',
+          weeklist: [
+            {
+              id: 'asdadadadfggsf',
+              title: 'work!',
+              description: 'Skriv Get to workawd asdasd aasdasdasd'
+            },
+            {
+              id: 'asdadadadfggsf',
+              title: 'Gjør noe',
+              description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
+            }
+          ]
+        }, {
+          id: 'Done',
+          weeklist: [
+            {
+              id: 'asdadadadfggsf',
+              title: 'work!',
+              description: 'Skriv Get to workawd asdasd aasdasdasd'
+            },
+            {
+              id: 'asdadadadfggsf',
+              title: 'Gjør noe',
+              description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
+            }
+          ]
+        },
+      ];
+
+      this.kanbanService.icebox.subscribe(updatedIcebox => {
+        this.icebox = updatedIcebox;
+      });
+
+      for (let week of this.weeks) {
+        this.connectedTo.push(week.id);
+      };
     }
-  ]
 
-
-  todo: Card[] = [
-    {
-      id: 'asdadadadfggsf',
-      title: 'Get to work',
-      description: 'Skriv Get to workawd asdasd aasdasdasd'
-    },
-    {
-      id: 'asdadadadfggsf',
-      title: 'Gjør noe',
-      description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
-    }
-   
-  ];
-
-  progress: Card[] = [
-    {
-      id: 'asdadadadfggsf',
-      title: 'work!',
-      description: 'Skriv Get to workawd asdasd aasdasdasd'
-    },
-    {
-      id: 'asdadadadfggsf',
-      title: 'Gjør noe',
-      description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
-    }
-  ];
-
-  done : Card[] = [
-    {
-      id: 'asdadadadfggsf',
-      title: 'work!',
-      description: 'Skriv Get to workawd asdasd aasdasdasd'
-    },
-    {
-      id: 'asdadadadfggsf',
-      title: 'Gjør noe',
-      description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
-    }
-  ];
-
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      // Same container -> only change index
+    drop(event: CdkDragDrop<string[]>) {
+      if(event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      // New container and index -> change all the stuff!!!
       transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
     }
   }
+
+
+  
+
+  
+
+
+
+
+  
+
+
 
   /**
    * Opens a dialog and saves the result upon successfull callback
    * @param card the clicked card
    */
-  itemClicked(card: Card, i: number, list: Card[]): void {
+  itemClicked(card: Card, i: number, list: Card[], listId): void {
     console.log("Clicked!");
     console.log(card);
 
@@ -107,8 +148,16 @@ export class KanbanMainComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        console.log(result, listId);
+        let list = this.weeks.find((obj) => {
+          return obj.id == listId
+        })
+        console.log(list, i);
+        list.weeklist[i] = result
+        
+        
         console.log('The dialog was closed');
-        list[i] = result;
+        // list[i] = result;
       }
       // TODO: Save the newly changed card
     });
