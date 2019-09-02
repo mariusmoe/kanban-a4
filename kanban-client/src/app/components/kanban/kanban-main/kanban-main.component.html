@@ -68,7 +68,7 @@
         <div cdkDropList id="{{week.id}}" [cdkDropListData]="week.weeklist" [cdkDropListConnectedTo]="connectedTo"
           class="example-list" (cdkDropListDropped)="drop($event)">
           <mat-card class="item-box" *ngFor="let item of week.weeklist; let i = index" cdkDrag>
-            <app-small-card [cardData]="item" (click)="itemClicked(item, i, done, week.id)"></app-small-card>
+            <app-small-card [cardData]="item" (click)="itemClicked(item, i, week.id)"></app-small-card>
           </mat-card>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import { DialogCardEditor } from './components/kanban/kanban-main/kanban-main.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
+import { KanbanService } from './_services/kanban.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent implements AfterViewInit{
 
   showFiller = false;
   dialogOpen = false;
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private kanbanService: KanbanService) {}
 
   ngAfterViewInit() {
     this.shortcuts.push(
@@ -49,7 +50,8 @@ export class AppComponent implements AfterViewInit{
     dialogRef.afterClosed().subscribe(result => {
       this.dialogOpen = false;
       if(result){
-        console.log('The dialog was closed');
+        console.log('The dialog was closed', result);
+        this.kanbanService.createNewCard(result);
         
       }
       // TODO: Save the newly created card

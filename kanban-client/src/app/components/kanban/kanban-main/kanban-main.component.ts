@@ -40,68 +40,76 @@ export class KanbanMainComponent implements OnInit {
 
     constructor(public dialog: MatDialog,
       private kanbanService: KanbanService){
-      this.masterList = ['Icebox','Todo', 'Progress', 'Done'] 
-      this.weeks = [
-        {
-          id: 'Icebox',
-          weeklist: [
-            {
-              id: 'qqqqqqqqqqqqqq',
-              title: 'Write more code now!',
-              dueDate: null,
-              estimatedTime: null,
-              tags: null,
-              description: 'All kode burde testes'
-            },
+      // this.masterList = ['Icebox','Todo', 'Progress', 'Done'] 
+      // this.weeks = [
+      //   {
+      //     id: 'Icebox',
+      //     weeklist: [
+      //       {
+      //         id: 'qqqqqqqqqqqqqq',
+      //         title: 'Write more code now!',
+      //         dueDate: null,
+      //         estimatedTime: null,
+      //         tags: null,
+      //         description: 'All kode burde testes'
+      //       },
             
-          ]
-        }, {
-          id: 'Todo',
-          weeklist: [
-            {
-              id: 'asdadadadfggsf',
-              title: 'Get to work',
-              description: 'Skriv Get to workawd asdasd aasdasdasd'
-            },
-            {
-              id: 'asdadadadfggsf',
-              title: 'Gjør noe',
-              description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
-            }
-          ]
-        }, {
-          id: 'Progress',
-          weeklist: [
-            {
-              id: 'asdadadadfggsf',
-              title: 'work!',
-              description: 'Skriv Get to workawd asdasd aasdasdasd'
-            },
-            {
-              id: 'asdadadadfggsf',
-              title: 'Gjør noe',
-              description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
-            }
-          ]
-        }, {
-          id: 'Done',
-          weeklist: [
-            {
-              id: 'asdadadadfggsf',
-              title: 'work!',
-              description: 'Skriv Get to workawd asdasd aasdasdasd'
-            },
-            {
-              id: 'asdadadadfggsf',
-              title: 'Gjør noe',
-              description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
-            }
-          ]
-        },
-      ];
+      //     ]
+      //   }, {
+      //     id: 'Todo',
+      //     weeklist: [
+      //       {
+      //         id: 'asdadadadfggsf',
+      //         title: 'Get to work',
+      //         description: 'Skriv Get to workawd asdasd aasdasdasd'
+      //       },
+      //       {
+      //         id: 'asdadadadfggsf',
+      //         title: 'Gjør noe',
+      //         description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
+      //       }
+      //     ]
+      //   }, {
+      //     id: 'Progress',
+      //     weeklist: [
+      //       {
+      //         id: 'asdadadadfggsf',
+      //         title: 'work!',
+      //         description: 'Skriv Get to workawd asdasd aasdasdasd'
+      //       },
+      //       {
+      //         id: 'asdadadadfggsf',
+      //         title: 'Gjør noe',
+      //         description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
+      //       }
+      //     ]
+      //   }, {
+      //     id: 'Done',
+      //     weeklist: [
+      //       {
+      //         id: 'asdadadadfggsf',
+      //         title: 'work!',
+      //         description: 'Skriv Get to workawd asdasd aasdasdasd'
+      //       },
+      //       {
+      //         id: 'asdadadadfggsf',
+      //         title: 'Gjør noe',
+      //         description: 'Skriv Get to et eller annet workawd asdasd aasdasdasd'
+      //       }
+      //     ]
+      //   },
+      // ];
 
-      this.kanbanService.icebox.subscribe(updatedIcebox => {
-        this.icebox = updatedIcebox;
+
+      this.kanbanService.masterList.subscribe(masterListItem => {
+        this.masterList = masterListItem;
+      });
+
+      this.kanbanService.subject.subscribe(weekItem => {
+        this.weeks = weekItem;
+        for (let week of this.weeks) {
+          this.connectedTo.push(week.id);
+        };
       });
 
       for (let week of this.weeks) {
@@ -112,11 +120,15 @@ export class KanbanMainComponent implements OnInit {
     drop(event: CdkDragDrop<string[]>) {
       if(event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log('container data: ', event.container.data,' prev index: ', event.previousIndex, 'current index: ',event.currentIndex);
+      
     } else {
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+        console.log('prev container: ',event.previousContainer.data, 'container data: ', event.container.data,' prev index: ', event.previousIndex, 'current index: ',event.currentIndex);
+
     }
   }
 
@@ -136,7 +148,7 @@ export class KanbanMainComponent implements OnInit {
    * Opens a dialog and saves the result upon successfull callback
    * @param card the clicked card
    */
-  itemClicked(card: Card, i: number, list: Card[], listId): void {
+  itemClicked(card: Card, i: number, listId): void {
     console.log("Clicked!");
     console.log(card);
 
