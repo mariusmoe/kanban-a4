@@ -14,33 +14,12 @@ import { KanbanService } from 'src/app/_services/kanban.service';
 })
 export class KanbanMainComponent implements OnInit {
 
-  icebox: Card[] = []
-
-  todo: Card[] = [];
-
-  progress: Card[] = [];
-
-  done: Card[] = [];
-
-
- // constructor() { }
-
-  ngOnInit() {
-  }
-    // TODO: Load kanban cards
-
-// ----------------------------------------------
-
-    masterList = [];
-    weeks = [];
-    connectedTo = [];
-
 
     // Hva med å bygge denne listen fra collections i firestore?
 
     constructor(public dialog: MatDialog,
-      private kanbanService: KanbanService){
-      // this.masterList = ['Icebox','Todo', 'Progress', 'Done'] 
+                private kanbanService: KanbanService) {
+      // this.masterList = ['Icebox','Todo', 'Progress', 'Done']
       // this.weeks = [
       //   {
       //     id: 'Icebox',
@@ -53,7 +32,7 @@ export class KanbanMainComponent implements OnInit {
       //         tags: null,
       //         description: 'All kode burde testes'
       //       },
-            
+
       //     ]
       //   }, {
       //     id: 'Todo',
@@ -107,40 +86,63 @@ export class KanbanMainComponent implements OnInit {
 
       this.kanbanService.subject.subscribe(weekItem => {
         this.weeks = weekItem;
-        for (let week of this.weeks) {
+        for (const week of this.weeks) {
           this.connectedTo.push(week.id);
-        };
+        }
       });
 
-      for (let week of this.weeks) {
+      for (const week of this.weeks) {
         this.connectedTo.push(week.id);
-      };
+      }
     }
 
+  icebox: Card[] = [];
+
+  todo: Card[] = [];
+
+  progress: Card[] = [];
+
+  done: Card[] = [];
+    // TODO: Load kanban cards
+
+// ----------------------------------------------
+
+    masterList = [];
+    weeks = [];
+    connectedTo = [];
+
+
+ // constructor() { }
+
+  ngOnInit() {
+  }
+
     drop(event: CdkDragDrop<string[]>) {
-      if(event.previousContainer === event.container) {
+      if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log('container data: ', event.container.data,' prev index: ', event.previousIndex, 'current index: ',event.currentIndex);
-      
+      console.log('container data: ', event.container.data, ' prev index: ', event.previousIndex, 'current index: ', event.currentIndex);
+
     } else {
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-        console.log('prev container: ',event.previousContainer.data, 'container data: ', event.container.data,' prev index: ', event.previousIndex, 'current index: ',event.currentIndex);
+        console.log('prev container: ', event.previousContainer.data, 'container data: ', event.container.data, ' prev index: ', event.previousIndex, 'current index: ', event.currentIndex);
+        console.log('prev container: ', event.previousContainer.id, 'container data: ', event.container.id, ' prev index: ', event.previousIndex, 'current index: ', event.currentIndex);
+
 
     }
   }
 
 
-  
-
-  
 
 
 
 
-  
+
+
+
+
 
 
 
@@ -149,7 +151,7 @@ export class KanbanMainComponent implements OnInit {
    * @param card the clicked card
    */
   itemClicked(card: Card, i: number, listId): void {
-    console.log("Clicked!");
+    console.log('Clicked!');
     console.log(card);
 
     const dialogRef = this.dialog.open(DialogCardEditor, {
@@ -159,15 +161,14 @@ export class KanbanMainComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         console.log(result, listId);
-        let list = this.weeks.find((obj) => {
-          return obj.id == listId
-        })
+        const list = this.weeks.find((obj) => {
+          return obj.id == listId;
+        });
         console.log(list, i);
-        list.weeklist[i] = result
-        
-        
+        list.weeklist[i] = result;
+
         console.log('The dialog was closed');
         // list[i] = result;
       }
@@ -200,7 +201,7 @@ export class DialogCardEditor {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogCardEditor>,
     @Inject(MAT_DIALOG_DATA) public data: Card) {
-      this.cardForm.patchValue(this.createForm(this.data).value)
+      this.cardForm.patchValue(this.createForm(this.data).value);
     }
     @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
 
@@ -209,7 +210,7 @@ export class DialogCardEditor {
       this._ngZone.onStable.pipe(take(1))
           .subscribe(() => this.autosize.resizeToFitContent(true));
     }
-    
+
   /**
    * Abort -> do not save
    */
@@ -235,17 +236,17 @@ export class DialogCardEditor {
   /**
    * Change the form
    * @param model the updated Card model
-   * @deprecated Since version 0. Modal should close, 
+   * @deprecated Since version 0. Modal should close,
    * therefore no need for update
    */
   private updateForm(model: Partial<Card>): void {
-    console.warn("Calling deprecated function!");
-    this.cardForm.patchValue(model)
+    console.warn('Calling deprecated function!');
+    this.cardForm.patchValue(model);
   }
 
   onSubmit() {
     console.log(this.formValue);
-    
+
   }
 
 }

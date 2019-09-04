@@ -11,7 +11,7 @@ export class KanbanService {
 
 
 
-  masterList:Observable<string[]> = of(['Icebox','Todo', 'Progress', 'Done']); 
+  masterList: Observable<string[]> = of(['Icebox', 'Todo', 'Progress', 'Done']);
   subject: Subject<object[]> = new Subject();
   _proposals: object[] = [];
 
@@ -31,7 +31,7 @@ export class KanbanService {
           tags: null,
           description: 'All kode burde testes'
         },
-        
+
       ]
     }, {
       id: 'Todo',
@@ -78,7 +78,7 @@ export class KanbanService {
     },
   ];
 
-  constructor() { 
+  constructor() {
 
     this._proposals = this.weeks;
     this.subject.next(Object.assign({}, this._proposals));
@@ -86,27 +86,27 @@ export class KanbanService {
 
   createNewCard(card: Card) {
     console.log('service received card: ', card);
-     let list:any = this._proposals.find((obj:any) => {
-        return obj.id == 'Icebox'
-    })
+    let list: any = this._proposals.find((obj: any) => {
+        return obj.id == 'Icebox';
+    });
     console.log('list: ', list);
-    
+
 
     console.log('_proposals: ', this._proposals);
-    
-    // this._proposals = 
+
+    // this._proposals =
     list.weeklist.push(card);
     console.log(this._proposals);
     console.log(list);
-    
-    
+
+
     this.subject.next(this._proposals); // emit completely new value
-    
+
     //   find((obj) => {
     //   return obj.id == this.masterList[0];
     // })
 
-    
+
   }
 
   // https://stackoverflow.com/questions/49289971/how-to-store-a-sorted-list-in-google-firestore
@@ -114,7 +114,7 @@ export class KanbanService {
   // TODO: https://www.freakyjolly.com/angular-7-drag-and-drop-across-multi-lists-in-angular-material-7/
 
 
-  
+
 
   // getIcebox(): Observable<Card[]> {
   //   // TODO: send the message _after_ fetching the heroes
