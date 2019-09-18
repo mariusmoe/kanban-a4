@@ -25,7 +25,7 @@ import { SmallCardComponent } from './components/kanban/small-card/small-card.co
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddNewCardComponent } from './components/kanban/add-new-card/add-new-card.component';
-import { KeyboardShortcutsModule }     from 'ng-keyboard-shortcuts';  
+import { KeyboardShortcutsModule }     from 'ng-keyboard-shortcuts';
 import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({

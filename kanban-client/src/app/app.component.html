@@ -1,9 +1,9 @@
 <mat-toolbar style="min-height: 30px !important; height: 40px !important;">
    Kanban time
-    
+
    <button mat-raised-button color="primary" (click)="createNewCard()" class="new-card-btn">New Card <span class="mat-small">(Cmd + enter)</span></button>
 
-  
+
 </mat-toolbar>
 <ng-keyboard-shortcuts [shortcuts]="shortcuts" [disabled]="dialogOpen"></ng-keyboard-shortcuts>
 <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Help'"></ng-keyboard-shortcuts-help>
@@ -16,7 +16,7 @@
       <button (click)="showFiller = !showFiller" mat-button class="navigation-btns expand-drawer-button">
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
-    
+
 </mat-drawer>
 
 <router-outlet></router-outlet>

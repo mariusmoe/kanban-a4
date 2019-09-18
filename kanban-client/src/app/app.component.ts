@@ -40,7 +40,7 @@ export class AppComponent implements AfterViewInit{
   createNewCard(e) {
     console.log(e);
     this.dialogOpen = true;
-    
+
     const dialogRef = this.dialog.open(DialogCardEditor, {
       width: '400px',
       data: this.card,
@@ -49,13 +49,10 @@ export class AppComponent implements AfterViewInit{
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogOpen = false;
-      if(result){
+      if (result) {
         console.log('The dialog was closed', result);
         this.kanbanService.createNewCard(result);
-        
       }
-      // TODO: Save the newly created card
-      // Let the service handle this!
     });
   }
 }

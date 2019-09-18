@@ -1,14 +1,14 @@
 <div>
-    
-    <form [formGroup]="cardForm" (ngSubmit)="onSubmit()" class="card-form">
+
+    <form [formGroup]="cardForm" (ngSubmit)="onSubmit()" class="card-form" (keyup)="tryToClose($event)">
         <mat-form-field class="full-width">
                 <input matInput  type="text" formControlName="title" placeholder="Title" cdkFocusInitial>
         </mat-form-field>
         <mat-form-field class="full-width">
-            <textarea 
-                matInput  
-                type="text" 
-                formControlName="description" 
+            <textarea
+                matInput
+                type="text"
+                formControlName="description"
                 placeholder="Description"
                 cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize"
@@ -26,7 +26,7 @@
             <input matInput type="number" formControlName="estimatedTime"  placeholder="Estimated Time" min="0" max="50">
         </mat-form-field>
         <mat-form-field class="full-width">
-            <!-- TODO: make4 this more fancy 
+            <!-- TODO: make4 this more fancy
                 https://stackblitz.com/edit/angular-dzf9dw?embed=1&file=app/autocomplete-overview-example.ts
                 Tags -->
             <!-- Listen for enter autocomplete -->
@@ -35,7 +35,7 @@
         </mat-form-field>
 
 
-        
+
 
 
         <!-- TODO: add functionality for changing column in card editor -->
@@ -48,10 +48,16 @@
             </mat-select>
         </mat-form-field> -->
         <br>
-        <button mat-raised-button type="submit" [disabled]="!cardForm.valid" [mat-dialog-close]="formValue" cdkFocusInitial>Submit</button>
+        <button mat-raised-button
+          type="submit"
+          [disabled]="!cardForm.valid"
+          [mat-dialog-close]="formValue"
+          cdkFocusInitial>
+            Submit (Ctrl + Enter)
+          </button>
         <p>
             Form Status: {{ cardForm.status }}
         </p>
-        
+
     </form>
 </div>
