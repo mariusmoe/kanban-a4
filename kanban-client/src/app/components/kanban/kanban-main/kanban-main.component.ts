@@ -56,20 +56,24 @@ export class KanbanMainComponent implements OnInit {
   }
 
     drop(event: CdkDragDrop<string[]>) {
-      if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log('container data: ', event.container.data, ' prev index: ', event.previousIndex, 'current index: ', event.currentIndex);
+    //   if (event.previousContainer === event.container) {
+    //   moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    //   console.log('container data: ', event.container.data, ' prev index: ',
+    //               event.previousIndex, 'current index: ', event.currentIndex);
 
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-        console.log('prev container: ', event.previousContainer.data, 'container data: ', event.container.data, ' prev index: ', event.previousIndex, 'current index: ', event.currentIndex);
-        console.log('prev container: ', event.previousContainer.id, 'container data: ', event.container.id, ' prev index: ', event.previousIndex, 'current index: ', event.currentIndex);
-
-
-    }
+    // } else {
+    //   transferArrayItem(event.previousContainer.data,
+    //     event.container.data,
+    //     event.previousIndex,
+    //     event.currentIndex);
+    //   console.log('prev container: ', event.previousContainer.data, 'container data: ',
+    //                 event.container.data, ' prev index: ', event.previousIndex, 'current index: ',
+    //                 event.currentIndex);
+    //   console.log('prev container: ', event.previousContainer.id, 'container data: ',
+    //                 event.container.id, ' prev index: ', event.previousIndex, 'current index: ',
+    //                 event.currentIndex);
+    // }
+      this.kanbanService.serviceDrop(event);
   }
 
   /**
@@ -103,18 +107,18 @@ export class KanbanMainComponent implements OnInit {
 
 @Component({
   selector: "dialog-card-editor",
-  templateUrl: "dialog-card-editor.html",
-  styleUrls: ["./kanban-main.component.css"]
+  templateUrl: 'dialog-card-editor.html',
+  styleUrls: ['./kanban-main.component.css']
 })
 export class DialogCardEditor {
   cardForm = this.fb.group({
     id: null,
-    title: ["", Validators.required],
-    description: "",
+    title: ['', Validators.required],
+    description: '',
     // todoList?: Todo[]; // <-- TODO
     dueDate: null,
     estimatedTime: 1,
-    tags: ""
+    tags: ''
   });
 
   constructor(
@@ -125,7 +129,7 @@ export class DialogCardEditor {
   ) {
     this.cardForm.patchValue(this.createForm(this.data).value);
   }
-  @ViewChild("autosize", { static: false }) autosize: CdkTextareaAutosize;
+  @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
   triggerResize() {
     // Wait for changes to be applied, then trigger textarea resize.
@@ -168,7 +172,7 @@ export class DialogCardEditor {
     event.stopPropagation();
     console.log(event, event.keyCode, event.keyIdentifier);
     if (event.ctrlKey && event.keyCode === 13) {
-      console.log("control man");
+      console.log('control man');
       this.dialogRef.close(this.formValue);
     }
   }

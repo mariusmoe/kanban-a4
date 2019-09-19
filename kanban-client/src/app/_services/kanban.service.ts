@@ -133,14 +133,40 @@ export class KanbanService {
         event.previousIndex,
         event.currentIndex
       );
+      console.log('container data: ', event.container.data, ' prev index: ',
+                  event.previousIndex, 'current index: ', event.currentIndex);
     } else {
-      // New container and index -> change all the stuff!!!
+      // Instead of transferArrayItem function. Make changes to 'weeks'!
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
+      console.log('prev container: ', event.previousContainer.data, 'container data: ',
+              event.container.data, ' prev index: ', event.previousIndex, 'current index: ',
+              event.currentIndex);
+      // Old plan
+      // Find previous container -> remove item from this container
+      // Find new container -> insert at right place
+
+      // New plan
+      // OK, here is the plan. Use GQL cursors for ordering of data. Make the cards self contained and move ids into
+      // the card. Then create a model transformation function to go fram storage preferential structure to rigid lists
+      // that can be consumed by the draganddrop CDK component.
+      // change might not be triggered if no change occured? this could might save
+      // rebradcast of object https://github.com/puleos/object-hash
     }
   }
+
+  /* transformFireStoreDataToAMegaList(fireStoreCards) {
+      for all firestor cards
+        find object with the right id
+        add card to correct list at correct index icebox, todo...
+
+
+
+
+
+  } */
 }
