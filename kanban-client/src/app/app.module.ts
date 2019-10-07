@@ -25,8 +25,12 @@ import { SmallCardComponent } from './components/kanban/small-card/small-card.co
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddNewCardComponent } from './components/kanban/add-new-card/add-new-card.component';
-import { KeyboardShortcutsModule }     from 'ng-keyboard-shortcuts';
+import { KeyboardShortcutsModule } from 'ng-keyboard-shortcuts';
 import { MatNativeDateModule } from '@angular/material/core';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -39,6 +43,9 @@ import { MatNativeDateModule } from '@angular/material/core';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AppRoutingModule,
     BrowserAnimationsModule,
     DragDropModule,

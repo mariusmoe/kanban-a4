@@ -3,6 +3,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 import { Card } from 'src/app/_models/card';
 import { Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: "root"
@@ -71,15 +72,27 @@ export class KanbanService {
 
   masterList: Observable<string[]> = of(["Icebox", "Todo", "Progress", "Done"]);
   subject: Subject<object[]> = new Subject();
+  fireBoards: Observable<any[]>;
   _proposals: object[] = [];
+
+  private cardsCollection: AngularFirestoreCollection<Card>;
 
   get proposals() {
     return this.subject.asObservable();
   }
 
-  constructor() {
+  constructor(db: AngularFirestore) {
     this._proposals = this.weeks;
     // this.subject.next(Object.assign({}, this._proposals));
+    db.collection('boards').snapshotChanges().subscribe(item => {
+      console.log(item);
+
+    });
+    db.collection('boards').doc('29MlBrBqpEWxiXz7sOUj').collection('cards').valueChanges().subscribe(item => {
+      console.log(item);
+
+    });
+    this.cardsCollection = db.collection<Card>('boards').doc('29MlBrBqpEWxiXz7sOUj').collection('cards');
   }
 
   /**
@@ -135,6 +148,10 @@ export class KanbanService {
       );
       console.log('container data: ', event.container.data, ' prev index: ',
                   event.previousIndex, 'current index: ', event.currentIndex);
+      // Find id and set card
+      // this card: bg1oJlzSYFPE3w7Y2wyI
+      this.cardsCollection.doc('bg1oJlzSYFPE3w7Y2wyI').update(event.container.data[event.currentIndex]);
+
     } else {
       // Instead of transferArrayItem function. Make changes to 'weeks'!
       transferArrayItem(
@@ -146,6 +163,8 @@ export class KanbanService {
       console.log('prev container: ', event.previousContainer.data, 'container data: ',
               event.container.data, ' prev index: ', event.previousIndex, 'current index: ',
               event.currentIndex);
+      this.cardsCollection.doc('bg1oJlzSYFPE3w7Y2wyI').update(event.container.data[event.currentIndex]);
+
       // Old plan
       // Find previous container -> remove item from this container
       // Find new container -> insert at right place
